@@ -1,13 +1,20 @@
 package com.vtxlab.bootcamp.springboot_exercise_1;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+
+import com.vtxlab.bootcamp.springboot_exercise_1.infra.DivideByZeroException;
+import com.vtxlab.bootcamp.springboot_exercise_1.infra.InvalidInputException;
+import com.vtxlab.bootcamp.springboot_exercise_1.infra.InvalidOperaException;
 //import com.vtxlab.bootcamp.springboot_exercise_1.service.impl.ExerciseServiceImpl;
 import com.vtxlab.bootcamp.springboot_exercise_1.service.ExerciseService;
+import com.vtxlab.bootcamp.springboot_exercise_1.service.impl.ExerciseServiceImpl;
 
 @WebMvcTest(ExerciseService.class)
 public class ExerciseServiceImplTest {
@@ -19,7 +26,6 @@ public class ExerciseServiceImplTest {
   void testcalculatorE() {
 
     // ExerciseService exerciseService = new ExerciseServiceImpl();
-
 
     // Add
     String testAdd = exerciseService.calculatorE("10.6", "2.0", "add");
@@ -73,6 +79,26 @@ public class ExerciseServiceImplTest {
     String testDiv4 = exerciseService.calculatorE("-10.6", "-2.0", "div");
     assertThat(testDiv4, equalTo("5.30000"));
 
-    
+  }
+
+  @Test
+  void testDivideByZeroException() {
+    assertThrows(DivideByZeroException.class, () -> {
+      new ExerciseServiceImpl().calculatorE("10.6", "0", "div");
+    });
+  }
+
+  @Test
+  void testInvalidInputException() {
+    assertThrows(InvalidInputException.class, () -> {
+      new ExerciseServiceImpl().calculatorE("10.6", "ABC", "div");
+    });
+  }
+
+  @Test
+  void testInvalidOperaException() {
+    assertThrows(InvalidOperaException.class, () -> {
+      new ExerciseServiceImpl().calculatorE("10.6", "2.6", "ABC");
+    });
   }
 }
