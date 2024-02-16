@@ -1,12 +1,7 @@
 package com.vtxlab.bootcamp.bootcampsbfakedatabase.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.vtxlab.bootcamp.bootcampsbfakedatabase.controller.DatabaseOperation;
 import com.vtxlab.bootcamp.bootcampsbfakedatabase.model.Cat;
@@ -26,28 +21,39 @@ public class DatabaseController implements DatabaseOperation {
   @Override
   public Cat getCat(int index) {
     // return new CatDatabaseServiceImpl().getCatFromStaticMemory(index);
-    return catDatabaseService.getCatFromStaticMemory(index);
+    return catDatabaseService.getCat(index);
   }
 
   @Override
   public void setCat(int index, String name, int age) {
     // new CatDatabaseServiceImpl().setCatToStaticMemory(index,
     // new Cat(name, age));
-    catDatabaseService.setCatToStaticMemory(index, new Cat(name, age));
+    catDatabaseService.setCat(index, new Cat(name, age));
   }
 
   @Override
   public Cat createCat(int idx, Cat cat) {
-    return catDatabaseService.setCatToStaticMemory(idx, cat);
+    return catDatabaseService.setCat(idx, cat);
   }
 
   @Override
   public Boolean deleteCat(int idx) {
-    return catDatabaseService.deleteCatToStaticMemory(idx);
+    return catDatabaseService.deleteCat(idx) != null;
   }
 
   @Override
-  public Cat updataCat(int idx, Cat cat) {
-    return catDatabaseService.updataCatToStaticMemory(idx, cat);
+  public Cat updateCat(int idx, Cat cat) {
+    return catDatabaseService.updateCat(idx, cat);
   }
+
+  @Override
+  public Cat patchCatName(int idx, String name) {
+    return catDatabaseService.patchCatName(idx, name);
+  }
+
+  @Override
+  public Cat patchCatAge(int idx, int age) {
+    return catDatabaseService.patchCatAge(idx, age);
+  }
+
 }

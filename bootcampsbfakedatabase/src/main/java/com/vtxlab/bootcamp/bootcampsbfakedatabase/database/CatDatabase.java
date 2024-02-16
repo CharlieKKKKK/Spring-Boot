@@ -27,18 +27,4 @@ public class CatDatabase {
     return cat;
   }
 
-  public static Boolean deleteCat(int index) {
-    if (index < 0 || index > dbLength - 1)
-      return false;
-    cats[index] = null;
-    return true;
-  }
-
-  public static Cat updataCat(int index, Cat cat) {
-    if (index < 0 || index > dbLength - 1 || cat == null)
-      throw new IllegalArgumentException();
-    cats[index] = cat;
-    return cat;
-
-  }
 }

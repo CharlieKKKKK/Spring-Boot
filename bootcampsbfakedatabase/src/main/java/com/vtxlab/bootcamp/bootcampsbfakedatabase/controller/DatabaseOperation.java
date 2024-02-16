@@ -24,14 +24,13 @@ public interface DatabaseOperation {
       @PathVariable String name, //
       @PathVariable int age);
 
-  //
   @PostMapping(value = "/cat/{idx}")
   Cat createCat(@PathVariable int idx, @RequestBody Cat cat);
 
   @DeleteMapping(value = "/cat/{idx}")
   Boolean deleteCat(@PathVariable int idx);
 
-  @PutMapping(value = "cat/{idx}")
+  @PutMapping(value = "/cat/{idx}")
   Cat updateCat(@PathVariable int idx, @RequestBody Cat cat);
 
   @PatchMapping(value = "/cat/{idx}/name/{name}")
